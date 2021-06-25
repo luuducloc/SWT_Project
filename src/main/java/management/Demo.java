@@ -10,5 +10,7 @@ package management;
  * @author locluu
  */
 public class Demo {
-    
+    public int Demo() {
+        return 1;
+    }
 }
