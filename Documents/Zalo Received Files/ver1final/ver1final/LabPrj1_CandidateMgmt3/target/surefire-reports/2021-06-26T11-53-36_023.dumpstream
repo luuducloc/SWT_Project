@@ -1,0 +1,12 @@
+# Created at 2021-06-26T11:53:36.024
+Picked up _JAVA_OPTIONS: -Xmx521M
+
+# Created at 2021-06-26T11:53:40.121
+ERROR: transport error 202: connect failed: Connection refused
+
+# Created at 2021-06-26T11:53:40.121
+ERROR: JDWP Transport dt_socket failed to initialize, TRANSPORT_INIT(510)
+
+# Created at 2021-06-26T11:53:40.122
+JDWP exit error AGENT_ERROR_TRANSPORT_INIT(197): No transports initialized [t:\workspace\open\src\jdk.jdwp.agent\share\native\libjdwp\debugInit.c:734]
+
