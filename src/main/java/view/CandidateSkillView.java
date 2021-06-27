@@ -13,10 +13,16 @@ import java.util.List;
  * @author Dang Phat
  */
 public class CandidateSkillView {
+
     DataInput dataInput = new DataInput();
 
     public int getCandidateId(List<String> listCandidates) {
         return dataInput.checkInputIntLimit("Enter a candidate ID: ", 1, listCandidates.size());
+    }
+
+    //Test
+    public int getCandidateId(List<String> listCandidates, int result) {
+        return dataInput.checkInputIntLimit(result, 1, listCandidates.size());
     }
 
     public String getSkillName(List<String> listSkills) {
@@ -31,8 +37,23 @@ public class CandidateSkillView {
         }
     }
 
+    //Test
+    public boolean getSkillName(List<String> listSkills, String skillName) {
+        for (String skill : listSkills) {
+            if (skillName.equalsIgnoreCase(skill.split("\\|")[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getExperience(int birthday) {
         return dataInput.checkInputExprience("Enter year of experience: ", birthday);
+    }
+
+    //Test
+    public boolean getExperience(int birthday, int result) {
+        return (dataInput.checkInputExprience(birthday, result));
     }
 
     public int getBirthDate(List<String> listCandidates, int candidateID) { //*****
