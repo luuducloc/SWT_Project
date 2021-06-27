@@ -55,6 +55,19 @@ public class DataInput {
             }
         }
     }
+    
+    public int checkInputIntLimit(int result, int min, int max) {
+        //loop until user input correct
+        try {
+            if (result < min || result > max) {
+                throw new NumberFormatException();
+
+            }
+        } catch (NumberFormatException e) {
+            return result - 100;
+        }
+        return result;
+    }
 
     //check user input string
     public String checkInputString(String msg) {
@@ -213,6 +226,17 @@ public class DataInput {
             }
         }
 
+    }
+    
+    public boolean checkInputExprience(int birthDate, int result) {
+        int yearCurrent = Calendar.getInstance().get(Calendar.YEAR);
+        int age = yearCurrent - birthDate;
+        int yearExperience = checkInputIntLimit(result, 1, age); //từ 1 đến số tuổi, năm kinh nghiệm phải nhỏ hơn số tuổi
+        if (yearExperience > age || yearExperience < 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 //new function
