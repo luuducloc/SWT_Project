@@ -56,6 +56,21 @@ public class DataInput {
         }
     }
     
+    public int checkInputIntLimit1(int result, int min, int max) {
+        //loop until user input correct
+        while (true) {
+            try {
+                if (result < min || result > max) {
+                    throw new NumberFormatException();
+
+                }
+                return result;
+                } catch (NumberFormatException e) {
+                    return -1;
+            }
+        }
+    }
+    
     public int checkInputIntLimit(int result, int min, int max) {
         //loop until user input correct
         try {
@@ -77,6 +92,18 @@ public class DataInput {
             String result = in.nextLine().trim();
             if (result.isEmpty()) {
                 System.err.println(SystemConstraint.EMPTY);
+            } else {
+                return result;
+            }
+        }
+    }
+    
+    public String checkInputString1(String result) {
+        //loop until user input correct
+        while (true) {
+            result = in.nextLine().trim();
+            if (result.isEmpty()) {
+                return null;
             } else {
                 return result;
             }
@@ -127,6 +154,20 @@ public class DataInput {
             }
         }
     }
+    
+    public String checkUserName1(List<String> listAccounts,String result) {
+        while (true) {
+            if (result.isEmpty()) {
+                return null;
+            } else if (result.length() < 5 || !Character.isLetter(result.charAt(0))) {
+                return null;
+            } else if (checkUserExist(listAccounts, result)) {
+                return null;
+            } else {
+                return result;
+            }
+        }
+    }
 
     public String checkPassword(String msg) {
         while (true) {
@@ -136,6 +177,18 @@ public class DataInput {
                 System.err.println(SystemConstraint.EMPTY);
             } else if (!result.matches(SystemConstraint.PASS_VALID)) {
                 System.out.println("Password must include more than 6 chars, both letter and numbers!");
+            } else {
+                return result;
+            }
+        }
+    }
+    
+    public String checkPassword1(String result) {
+        while (true) {
+            if (result.isEmpty()) {
+                return null;
+            } else if (!result.matches(SystemConstraint.PASS_VALID)) {
+                return null;
             } else {
                 return result;
             }
