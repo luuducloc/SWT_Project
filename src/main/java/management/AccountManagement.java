@@ -18,6 +18,7 @@ import view.Message;
  * @author Dang Phat
  */
 public class AccountManagement {
+
     FileHandler fileHandler = new FileHandler();
 
     private final InterfaceView view = new InterfaceView();
@@ -50,7 +51,19 @@ public class AccountManagement {
         m.AccountManagementMessage(1, "Add ");
     }
 
+    public int add(String userName, String password, String rePass, int type) {
+        listAccounts = fileHandler.getListAccounts();
+        User newUser = new AccountView().createUser(listAccounts, userName, password, rePass, type);
+        if (newUser != null) {
+            listAccounts.add(newUser.getUserCode() + "|" + newUser.getUserName() + "|" + newUser.getPassword() + "|" + newUser.getType());
+
+            return listAccounts.size();
+        }
+        return listAccounts.size();
+    }
+
     private void update() {
+        System.out.println(add("mrc123", "123456", "123456", 1));
         Message m = new Message();
         listAccounts = fileHandler.getListAccounts();
         User newUser = new AccountView().updateUser(listAccounts);

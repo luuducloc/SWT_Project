@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: management.AccountManagementTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.004 s <<< FAILURE! - in management.AccountManagementTest
+management.AccountManagementTest  Time elapsed: 0.003 s  <<< ERROR!
+org.junit.platform.commons.JUnitException: @BeforeAll method 'public void management.AccountManagementTest.setUpClass()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+

@@ -37,6 +37,34 @@ public class AccountView {
         return user;
     }
 
+    public User createUser(List<String> listAccounts, String userName, String pass, String confirmPassword, int type) {
+        User user = new User();
+        String name = dataInput.checkUserName1(listAccounts, userName);
+        String passWord = dataInput.checkPassword1(pass);
+        String confirmPassword1 = dataInput.checkPassword1(confirmPassword);
+        int typeUser = dataInput.checkInputIntLimit1(type, 1, 2);
+
+        if (name != null && passWord != null && confirmPassword1 != null && typeUser != -1) {
+            System.out.println(dataInput.checkUserName1(listAccounts, userName));
+            user.setUserName(dataInput.checkUserName1(listAccounts, userName));
+            System.out.println(passWord);
+            System.out.println("confirm pass: " + confirmPassword1);
+            if (passWord.equals(confirmPassword1)) {
+                System.out.println(pass);
+                user.setPassword(pass);
+            } else {
+                return null;
+            }
+
+            System.out.println(typeUser);
+            user.setType(type);
+            user.setUserCode(listAccounts.size() + 1);
+            return user;
+        }
+
+        return null;
+    }
+
     public User updateUser(List<String> listAccounts) {
         User user = new User();
         user.setUserCode(dataInput.checkInputIntLimit("Enter user code: ", 1, listAccounts.size()));
