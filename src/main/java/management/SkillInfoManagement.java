@@ -18,66 +18,76 @@ import view.SKillView;
  * @author Dang Phat
  */
 public class SkillInfoManagement {
-
+    
     private InterfaceView view = new InterfaceView();
     FileHandler fileHandler = new FileHandler();
-
+    
     List<String> listSkills = fileHandler.getAllDataInFile(SystemConstraint.SKILL);
-
-    private void writeFile(String URL, List<String> list) {
-        fileHandler.writeFile(URL, list);
+    SKillView skillView=new SKillView();
+    private void writeFile(String uel, List<String> list) {
+        fileHandler.writeFile(uel, list);
     }
 
     private void showMess(String mess) {
         System.out.println(mess);
     }
 
-    private void add() {
-        List<String> listSkills = fileHandler.getAllDataInFile(SystemConstraint.SKILL);
+    public void add() {
         String skillName = "";
         boolean frag = true;
         while (frag) {
             skillName = new SKillView().inputSkillName();
-            if (checkExistSkillOnId(listSkills, skillName) == true) {
-                frag = false;
-            }
             if (checkExistSkillOnId(listSkills, skillName) == true) {
                 Skill skill = new Skill();
                 skill.setSkillID(listSkills.size() + 1);
                 skill.setSkillName(skillName);
                 listSkills.add(skill.saveFormat());
                 writeFile(SystemConstraint.SKILL, listSkills);
+                System.out.println("Add Succesful");
+                break;
+            }else{
+                showMess("Name cannot be a number Or Name is Already!!");
             }
         }
-
     }
-
-    public boolean checkExistSkillOnId(List<String> listSkills, String skillName) {//****
+    
+    public int addTest(String skillName,ArrayList<String>listSkill){
+        String regex = "^[0-9]+$";
+       
+        for (String s : listSkill) {
+            if(s.split("\\|")[1].equalsIgnoreCase(skillName)){
+                return listSkill.size();
+            }if (skillName.matches(regex)) {
+                return listSkills.size();
+            }
+            if(skillName.isEmpty()){
+                return listSkills.size();
+            }
+        }
+      
+        
+        return listSkills.size();
+    }
+    
+    private boolean checkExistSkillOnId(List<String> listSkills, String skillName) {//****
         String regex = "^[0-9]+$";
         int count = 0;
         for (String l : listSkills) {
             if (l.split("\\|")[1].equalsIgnoreCase(skillName)) {
-
-                showMess("Name has in list");
                 return false;
             }
             count++;
         }
         if (count == listSkills.size()) {
             if (skillName.matches(regex)) {
-
-                showMess("Name skill phải là chữ");
-
                 return false;
             } else {
-                showMess("OK!");
                 return true;
             }
         }
         return false;
     }
-
-    private void update() {
+    public void update() {
         int skillID = new SKillView().getSkillIdToUpdate(listSkills);
         String oldSkill = "";
         String newSkill = "";
@@ -89,14 +99,34 @@ public class SkillInfoManagement {
                 skillUpdated.setSkillID(skillID);
                 skillUpdated.setSkillName(newSkill);
                 listSkills.set(skillID - 1, skillUpdated.saveFormat());
-                break;
+               
+            
             }
         }
         writeFile(SystemConstraint.SKILL, listSkills);
         showMess("Update successfully!");
     }
-
-    private void delete() {
+    //Test
+//    public int update(int skillId,String skillName){
+//        if(skillId!=skillView.getSkillIdToUpdate(listSkills, skillId)){
+//            return listSkills.size();
+//        }
+//        String oldSkill = "";
+//     
+//        for (String skill : listSkills) {
+//            if (Integer.parseInt(skill.split("\\|")[0]) == skillId) {
+//                oldSkill = skill.split("\\|")[1];
+//                Skill skillUpdated = new Skill();
+//                skillUpdated.setSkillID(skillId);
+//                skillUpdated.setSkillName(skillName);
+//                listSkills.set(skillId - 1, skillUpdated.saveFormat());
+//                return listSkills.size();
+//            
+//            }
+//        }
+//        return listSkills.size();
+//    }
+    public void delete() {
         ArrayList<String> listCandidateSkillsUpdated = new ArrayList<>();
         int skillID = new SKillView().getSkillIdToDelete(listSkills);
         String skillNameRemove = "";
@@ -112,7 +142,6 @@ public class SkillInfoManagement {
             listSkills.set(i, skillUpdated);
         }
         writeFile(SystemConstraint.SKILL, listSkills);
-
         showMess("Delete successfully!");
     }
 
@@ -130,6 +159,21 @@ public class SkillInfoManagement {
                 break;
             default:
                 break;
+        }
+    }
+    public int deleteTest(int id, List<String> listCandidates) {
+        if (id < 1 || id > listCandidates.size()) {
+            return listCandidates.size();
+        } else {
+            return listCandidates.size() - 1;
+        }
+    }
+    
+        public int updateTest(int id, List<String> listCandidates) {
+        if (id < 1 || id > listCandidates.size()) {
+            return listCandidates.size();
+        } else {
+            return listCandidates.size() - 1;
         }
     }
 }
