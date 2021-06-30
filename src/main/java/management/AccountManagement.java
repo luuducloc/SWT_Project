@@ -63,7 +63,7 @@ public class AccountManagement {
     }
 
     private void update() {
-        System.out.println(add("mrc123", "123456", "123456", 1));
+        System.out.println(delete(6));
         Message m = new Message();
         listAccounts = fileHandler.getListAccounts();
         User newUser = new AccountView().updateUser(listAccounts);
@@ -77,9 +77,28 @@ public class AccountManagement {
         m.AccountManagementMessage(1, "Update ");
     }
 
+    public boolean update(int code, int type) {
+        listAccounts = fileHandler.getListAccounts();
+        User newUser = new AccountView().updateUser1(listAccounts, code, type);
+        if (newUser != null) {
+            if (newUser != null) {
+                for (int i = 0; i < listAccounts.size(); i++) {
+                    if (listAccounts.get(i).split("\\|")[0].equals(newUser.getUserCode() + "")) {
+                        listAccounts.set(i, listAccounts.get(i).substring(0, listAccounts.get(i).lastIndexOf("|") + 1) + newUser.getType());
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     private void delete() {
+        listAccounts = fileHandler.getListAccounts();
         Message m = new Message();
         int userCode = dataInput.checkInputIntLimit("Enter user code to delete: ", 1, listAccounts.size());
+        System.out.println(userCode);
         for (String account : listAccounts) {
             if (Integer.parseInt(account.split("\\|")[0]) == userCode) {
                 listAccounts.remove(userCode - 1);
@@ -92,6 +111,26 @@ public class AccountManagement {
         }
         writeFile(listAccounts);
         m.AccountManagementMessage(1, "Delete ");
+    }
+
+    public int delete(int code) {
+        System.out.println("code: " + code);
+        listAccounts = fileHandler.getListAccounts();
+        if (code >= 1 || code <= listAccounts.size()) {
+            for (String account : listAccounts) {
+                if (Integer.parseInt(account.split("\\|")[0]) == code) {
+                    listAccounts.remove(code - 1);
+                    return listAccounts.size();
+                }
+            }
+            for (int i = code - 1; i < listAccounts.size(); i++) {
+                String candidateUpdated = (i + 1) + listAccounts.get(i).substring(listAccounts.get(i).indexOf("|"));
+                listAccounts.set(i, candidateUpdated);
+                return listAccounts.size();
+            }
+        }
+
+        return listAccounts.size();
     }
 
     private void changePassword() {

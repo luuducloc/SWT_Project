@@ -73,6 +73,20 @@ public class AccountView {
         return user;
     }
 
+    public User updateUser1(List<String> listAccounts, int code, int type) {
+        User user = new User();
+        int codeUser = dataInput.checkInputIntLimit1(code, 1, listAccounts.size());
+        user.setUserCode(codeUser);
+        System.out.println("code user in view: " + codeUser);
+        int typeUser = dataInput.checkInputIntLimit1(type, 1, 2);
+        
+        if (codeUser != -1 && typeUser != -1) {
+            user.setType(typeUser);
+            return user;
+        }
+        return null;
+    }
+
     public User changePassword(List<String> listAccounts) {
         User user = new User();
         user.setUserCode(dataInput.checkInputIntLimit("Enter user code: ", 1, listAccounts.size()));
