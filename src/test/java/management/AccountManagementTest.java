@@ -23,16 +23,17 @@ import static org.junit.Assert.*;
  * @author locluu
  */
 public class AccountManagementTest {
-    FileHandler fileHandler = null;
-    InterfaceView view = null;
-    AccountView accountView = null;
-    AccountManagement account = null;
-    List<String> listAccounts = null;
+    static FileHandler fileHandler = null;
+    static InterfaceView view = null;
+    static AccountView accountView = null;
+    static AccountManagement account = null;
+    static List<String> listAccounts = null;
     int accountID;
     String userName;
     String password;
     String rePassword;
     int type, result;
+    boolean resultUpdate;
     
     
     public AccountManagementTest() {
@@ -42,7 +43,7 @@ public class AccountManagementTest {
     }
     
     @BeforeAll
-    public void setUpClass() {
+    public static void setUpClass() {
         account = new AccountManagement();
         view = new InterfaceView();
         fileHandler = new FileHandler();
@@ -51,7 +52,7 @@ public class AccountManagementTest {
     }
     
     @AfterAll
-    public void tearDownClass() {
+    public static void tearDownClass() {
         view = null;
         fileHandler = null;
         listAccounts = null;
@@ -93,7 +94,7 @@ public class AccountManagementTest {
         rePassword ="c123456";
         type = 1;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #2: ", result, 3);
+        assertEquals("Test Case #2: ", result, 2);
         
         //TC3
         userName = "mrc123";
@@ -101,7 +102,7 @@ public class AccountManagementTest {
         rePassword ="123456";
         type = 1;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #3: ", result, 3);
+        assertEquals("Test Case #3: ", result, 2);
         
         //TC4
         userName = "mrc123";
@@ -109,7 +110,7 @@ public class AccountManagementTest {
         rePassword ="c12345";
         type = 1;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #4: ", result, 3);
+        assertEquals("Test Case #4: ", result, 2);
         
         //TC5
         userName = "mrc123";
@@ -117,7 +118,7 @@ public class AccountManagementTest {
         rePassword ="c123456";
         type = -1;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #5: ", result, 3);
+        assertEquals("Test Case #5: ", result, 2);
         
         //TC6
         userName = "mra123";
@@ -125,7 +126,7 @@ public class AccountManagementTest {
         rePassword ="c123456";
         type = 0;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #6: ", result, 3);
+        assertEquals("Test Case #6: ", result, 2);
         
         //TC7
         userName = "mra123";
@@ -133,13 +134,83 @@ public class AccountManagementTest {
         rePassword ="c123456";
         type = 5;
         result = account.add(userName, password, rePassword, type);
-        assertEquals("Test Case #7: ", result, 3);
+        assertEquals("Test Case #7: ", result, 2);
         
     }
     
     public void update() {
-        System.out.println("1. Test list:");
+        //TC01
+        accountID = 1;
+        type = 1;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #8", result, true);
+        
+        //TC02
+        accountID = 0;
+        type = 1;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #9", result, false);
+        
+        //TC03
+        accountID = 1;
+        type = 2;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #10", result, true);
+        
+        //TC04
+        accountID = 1;
+        type = -1;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #11", result, false);
+        
+        
+        //TC05
+        accountID = -1;
+        type = 1;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #12", result, false);
+        
+        //TC06
+        accountID = 10;
+        type = 1;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #13", result, false);
+        
+        //TC08
+        accountID = 1;
+        type = 3;
+        resultUpdate = account.update(accountID, type);
+        assertEquals("Test Case #14", result, false);
+    }
+    
+    public void delete() {
+        //TC1
+        accountID = 1;
+        result = account.delete(accountID);
+        assertEquals("Test case #15", result, 2);
+        
+        //TC2
+        accountID = 2;
+        result = account.delete(accountID);
+        assertEquals("Test case #16", result, 2);
+        
+        //TC3
+        accountID = 3;
+        result = account.delete(accountID);
+        assertEquals("Test case #17", result, 2);
+        
+        //TC4
+        accountID = 7;
+        result = account.delete(accountID);
+        assertEquals("Test case #18", result, 3);
+        
+        //TC5
+        accountID = -1;
+        result = account.delete(accountID);
+        assertEquals("Test case #19", result, 3);
         
     }
+    
+    
     
 }

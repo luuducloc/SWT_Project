@@ -21,7 +21,6 @@ public class DataInput {
     private Scanner in = new Scanner(System.in);
 
 //    ?private final  SystemConstraint.PASS_VALID;
-
 //    private final String PHONE_VALID = "^\\d{10}\\d*$";
 //
 //    private final String NAME_VALID = "^[a-zA-Z\\s]+";
@@ -37,7 +36,6 @@ public class DataInput {
      */
 //    private final String EMAIL_VALID
 //            = "^[A-Za-z0-9.+-_%]+@[A-Za-z.-]+\\.[A-Za-z]{2,4}$";
-
     //check user input number limit
     public int checkInputIntLimit(String msg, int min, int max) {
         //loop until user input correct
@@ -55,22 +53,22 @@ public class DataInput {
             }
         }
     }
-    
+
     public int checkInputIntLimit1(int result, int min, int max) {
         //loop until user input correct
-        while (true) {
+        System.out.println("aaaaaaaa");
             try {
                 if (result < min || result > max) {
-                    throw new NumberFormatException();
-
-                }
-                return result;
-                } catch (NumberFormatException e) {
                     return -1;
+                }
+
+            } catch (NumberFormatException e) {
+                return -1;
             }
+            return result;
         }
-    }
     
+
     public int checkInputIntLimit(int result, int min, int max) {
         //loop until user input correct
         try {
@@ -97,7 +95,7 @@ public class DataInput {
             }
         }
     }
-    
+
     public String checkInputString1(String result) {
         //loop until user input correct
         while (true) {
@@ -154,8 +152,8 @@ public class DataInput {
             }
         }
     }
-    
-    public String checkUserName1(List<String> listAccounts,String result) {
+
+    public String checkUserName1(List<String> listAccounts, String result) {
         while (true) {
             if (result.isEmpty()) {
                 return null;
@@ -182,7 +180,7 @@ public class DataInput {
             }
         }
     }
-    
+
     public String checkPassword1(String result) {
         while (true) {
             if (result.isEmpty()) {
@@ -280,7 +278,7 @@ public class DataInput {
         }
 
     }
-    
+
     public boolean checkInputExprience(int birthDate, int result) {
         int yearCurrent = Calendar.getInstance().get(Calendar.YEAR);
         int age = yearCurrent - birthDate;
