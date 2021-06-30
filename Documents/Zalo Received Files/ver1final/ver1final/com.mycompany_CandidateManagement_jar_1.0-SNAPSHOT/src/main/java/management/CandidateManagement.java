@@ -9,7 +9,6 @@ import common.DataInput;
 import common.FileHandler;
 import constraint.SystemConstraint;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import model.Candidate;
 import model.Experience;
@@ -64,68 +63,6 @@ public class CandidateManagement {
         messageSuccess("Add");
     }
 
-    public int addTest(String firseName, String lastName, int yearOfBirth, String address, String phone, String email, int numberOfSkill, ArrayList<Skill> lsSkill, int type, int gradYear, String gradRank, int yearExp) {
-
-        List<String> listCandidates = fileHandler.getAllDataInFile(SystemConstraint.CANDIDATE);
-        int age = Calendar.getInstance().get(Calendar.YEAR) - yearOfBirth;
-        
-      listCandidates.add(new Candidate((listCandidates.size() +1), firseName, lastName, yearOfBirth, address, phone, email, type, lsSkill).saveFormat());
-
-//        if (!name.matches(SystemConstraint.NAME_VALID)) {
-//            return listCandidates.size();
-//        }
-//
-//        if (yearOfBirth < 1900 || yearOfBirth > Calendar.getInstance().get(Calendar.YEAR)) {
-//            return listCandidates.size();
-//        }
-//
-//        if (!phone.matches(SystemConstraint.PHONE_VALID)) {
-//            return listCandidates.size();
-//        }
-//        if (!email.matches(SystemConstraint.EMAIL_VALID)) {
-//            return listCandidates.size();
-//        }
-//
-//        if (numberOfSkill != lsSkill.size()) {
-//            return listCandidates.size();
-//        }
-//        int count = 0;
-//        for (String s : lsSkill) {
-//            List<String> listSkills = new FileHandler().getAllDataInFile("skill.txt");
-//            for (String skill : listSkills) {
-//                if (s.equals(skill.split("\\|")[1])) {
-//                    count++;
-//                }
-//            }
-//
-//        }
-//
-//        if (count == 0) {
-//            return listCandidates.size();
-//        }
-//
-//        if (type == 1) {
-//            if (gradYear < yearOfBirth || gradYear > Calendar.getInstance().get(Calendar.YEAR)) {
-//                return listCandidates.size();
-//            }
-//        }
-//        if (!(gradRank.equals("Excellence") || gradRank.equals("Good") || gradRank.equals("Fair") || gradRank.equals("Poor"))) {
-//            return listCandidates.size();
-//        }
-//
-//        if (type == 2) {
-//            if (yearExp > age) {
-//                return listCandidates.size();
-//            }
-//        }
-//
-//        if (type != 0 && type != 1 & type != 2) {
-//            return listCandidates.size();
-//        }
-
-        return listCandidates.size() + 1;
-    }
-
     private void upadte() {
         listCandidateSkillsUpdated = new ArrayList<>();
         int candidateID = dataInput.checkInputIntLimit("Enter candidate ID to update: ", 1, listCandidates.size());
@@ -178,22 +115,6 @@ public class CandidateManagement {
         messageSuccess("Delete");
     }
 
-    public int deleteTest(int id, List<String> listCandidates) {
-        if (id < 1 || id > listCandidates.size()) {
-            return listCandidates.size();
-        } else {
-            return listCandidates.size() - 1;
-        }
-    }
-    
-        public int updateTest(int id, List<String> listCandidates) {
-        if (id < 1 || id > listCandidates.size()) {
-            return listCandidates.size();
-        } else {
-            return listCandidates.size() - 1;
-        }
-    }
-
     public void candidateManagementController() {
         int candidateManagementChoice = view.candidateManagement(); //change variable name
         switch (candidateManagementChoice) {
@@ -213,15 +134,4 @@ public class CandidateManagement {
                 break;
         }
     }
-
-    public static void main(String[] args) {
-        String email = "vuhiep@fpt";
-        if (!email.matches(SystemConstraint.EMAIL_VALID)) {
-            System.out.println("false");
-        } else {
-            System.out.println("aa");
-        }
-
-    }
-
 }
